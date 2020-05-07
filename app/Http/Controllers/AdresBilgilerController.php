@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Il;
+use App\Ilce;
 use App\Models\Adresler;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -45,8 +47,8 @@ class AdresBilgilerController extends Controller
             'soyad' => $request->soyad,
             'varsayilan' => (int) $request->varsayilan,
             'kullanici_id' => auth()->id(),
-            'il_id' => 1,
-            'ilce_id' => 1
+            'il_id' => $request->il_id,
+            'ilce_id' => $request->ilce_id
         ];
         if ((int)$request->varsayilan == 1) {
             Adresler::where('kullanici_id', auth()->id())
@@ -72,6 +74,8 @@ class AdresBilgilerController extends Controller
     {
         $request->validate([
             'adres_baslik' => 'required',
+            'ad' => 'required',
+            'soyad' => 'required',
             'satir1' => 'required',
             'satir2' => 'required',
             'telefon' => 'required'
@@ -80,6 +84,8 @@ class AdresBilgilerController extends Controller
         $adresler = Adresler::find($id);
         $adresler->update([
             'adres_baslik' => $request->adres_baslik,
+            'ad' => $request->ad,
+            'soyad' => $request->soyad,
             'satir1' => $request->satir1,
             'satir2' => $request->satir2,
             'telefon' => $request->telefon,
@@ -100,5 +106,17 @@ class AdresBilgilerController extends Controller
             ->route('adresbilgilerim')
             ->with('mesaj', 'Adres Silindi')
             ->with('mesaj_tur', 'success');
+    }
+
+    public function il(Request $request ){
+        $iller = Il::get();
+
+        return $iller->toJson();
+    }
+
+    public function ilce(Request $request ){
+        $ilceler = Ilce::where("il_id", $request->get('il_id'))->get();
+
+        return $ilceler->toJson();
     }
 }

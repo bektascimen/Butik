@@ -57,6 +57,7 @@ Route::group(['prefix' => 'yonetim', 'namespace' => 'Yonetim'], function () {
 });
 
 Route::get('/', 'AnasayfaController@index')->name('anasayfa');
+Route::get('/urun/filtre', 'KategoriController@filtre')->name('kategori.filtre');
 Route::get('/kategori/{slug_kategoriadi}', 'KategoriController@index')->name('kategori');
 Route::get('/urun/{slug_urunadi}', 'UrunController@index')->name('urun');
 Route::post('/ara', 'UrunController@ara')->name('urun_ara');
@@ -102,6 +103,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/adreskayit', 'AdresBilgilerController@adreskayit_form')->name('adres.kaydet');
         Route::get('/sil/{id}', 'AdresBilgilerController@sil')->name('adres.sil');
     });
+
+    Route::get("il", 'AdresBilgilerController@il');
+    Route::get("ilce", 'AdresBilgilerController@ilce');
 });
 
 
@@ -126,7 +130,6 @@ Route::get('/test/mail', function () {
     $kullanici = \App\Models\Kullanici::find(1);
     return new App\Mail\KullaniciKayitMail($kullanici);
 });
-
 
 
 Auth::routes();

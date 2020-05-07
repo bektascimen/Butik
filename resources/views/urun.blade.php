@@ -52,42 +52,27 @@
 
                                 </div>
                                 <div class="pd-desc">
-                                    <h4>{{ $urun->fiyat }}₺</h4>
+                                    <h4>{{ $urun->indirimli_fiyat ?: $urun->fiyat }}₺</h4>
                                 </div>
                                 <div class="pd-color">
                                     <h6>Color</h6>
                                     <div class="pd-color-choose">
-                                        <div class="cc-item">
-                                            <input type="radio" id="cc-black">
-                                            <label for="cc-black"></label>
-                                        </div>
-                                        <div class="cc-item">
-                                            <input type="radio" id="cc-yellow">
-                                            <label for="cc-yellow" class="cc-yellow"></label>
-                                        </div>
-                                        <div class="cc-item">
-                                            <input type="radio" id="cc-violet">
-                                            <label for="cc-violet" class="cc-violet"></label>
-                                        </div>
+                                        @foreach($urunRenkFiltre as $key => $urunRenk)
+                                            <div>
+                                                <input type="checkbox" class="renk" value="{{$key}}">
+                                                <label for="renk">{{$key}}</label>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
                                 <div class="pd-size-choose">
-                                    <div class="sc-item">
-                                        <input type="radio" id="sm-size">
-                                        <label for="sm-size">s</label>
-                                    </div>
-                                    <div class="sc-item">
-                                        <input type="radio" id="md-size">
-                                        <label for="md-size">m</label>
-                                    </div>
-                                    <div class="sc-item">
-                                        <input type="radio" id="lg-size">
-                                        <label for="lg-size">l</label>
-                                    </div>
-                                    <div class="sc-item">
-                                        <input type="radio" id="xl-size">
-                                        <label for="xl-size">xs</label>
-                                    </div>
+                                    @foreach($urunBedenFiltre as $key => $value)
+                                        <div class="sc-item">
+                                            <label for="size-{{$key}}">{{$key}}</label>
+                                            <input type="checkbox" class="beden" id="size-{{$key}}" name="size{{$key}}"
+                                                   value="{{$key}}">
+                                        </div>
+                                    @endforeach
                                 </div>
                                 <div class="quantity">
                                     <form action="{{route('sepet.ekle')}}" method="post">
@@ -100,7 +85,11 @@
                                     </form>
                                 </div>
                                 <ul class="pd-tags">
-                                    <li><span>Kategori</span>: More Accessories, Wallets & Cases</li>
+                                    <li><span>Kategori</span>:
+                                        @foreach($urun->kategoriler as $kategori)
+                                            {{$kategori->kategori_adi}}
+                                        @endforeach
+                                    </li>
                                 </ul>
                                 <div class="pd-rating">
                                     <i class="fa fa-star"></i>

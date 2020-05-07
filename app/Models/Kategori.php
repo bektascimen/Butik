@@ -49,6 +49,11 @@ class Kategori extends Model
         return $this->hasMany(KategoriUrun::class, 'kategori_id');
     }
 
+    public function urunKategori()
+    {
+        return $this->belongsToMany('App\Models\Urun');
+    }
+
     /**
      * @return HasMany
      */

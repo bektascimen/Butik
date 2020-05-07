@@ -20,7 +20,9 @@
         <div class="products bg-content">
             <div class="row">
                 <div class="col-md-10">
+                    <div class="row">
                 @foreach($begenilen_urunler as $begen)
+
                         <div class="col-md-3 col-sm-6 col-xs-6">
                              <div class="product-item">
                                  <div class="pi-pic">
@@ -53,6 +55,7 @@
                             </div>
                         </div>
                 @endforeach
+                    </div>
                 </div>
             </div>
         </div>

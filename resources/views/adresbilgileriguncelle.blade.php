@@ -41,6 +41,16 @@
                                        value="{{$adresler->adres_baslik}}">
                             </div>
                             <div class="group-input">
+                                <label for="username">Adres Başlık</label>
+                                <input type="text" name="ad"
+                                       value="{{$adresler->ad}}">
+                            </div>
+                            <div class="group-input">
+                                <label for="username">Adres Başlık</label>
+                                <input type="text" name="soyad"
+                                       value="{{$adresler->soyad}}">
+                            </div>
+                            <div class="group-input">
                                 <label for="username">Cadde, mahalle, apartman adı</label>
                                 <input type="text" name="satir1"
                                        value="{{$adresler->satir1}}">
@@ -54,6 +64,17 @@
                                 <label for="pass">Telefon</label>
                                 <input type="text" name="telefon" placeholder="Telefon"
                                        value="{{$adresler->telefon}}">
+                            </div>
+                            <div class="group-input">
+                                <label for="il">İl</label><br>
+                                <html>
+                                <select name="il_id" id="il_id">
+                                    <option value="{{$adresler->il_id}}"> {{$adresler->ilceAdi->il_adi}}  </option>
+                                </select>
+                                <select name="ilce_id" id="ilce_id" disabled="disabled">
+                                    <option value="{{$adresler->ilce_id}}"> {{$adresler->ilceAdi->ilce_adi}}  </option>
+                                </select>
+                                </html>
                             </div>
                             <div>
                                 <label for="varsayilan">

@@ -48,11 +48,6 @@
                             </div>
 
                                 <div class="group-input">
-                                    <label for="username">Puanlarınız</label>
-                                    <input type="text" name="puan" value="0 OrdanBiPuan, Çok Yakında!" disabled>
-                                </div>
-
-                                <div class="group-input">
                                     <label for="pass">E-Mail Adresiniz</label>
                                     <input type="text" type="email" name="email" value="{{auth()->user()->email}}" disabled>
                                 </div>

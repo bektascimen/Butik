@@ -30,7 +30,8 @@ class Kullanici extends Authenticatable
         return sprintf("%s %s", $this->ad, $this->soyad);
     }
 
-    function begenilen_urunler(){
+    function begenilen_urunler()
+    {
         return $this->hasMany(BegenilenUrunler::class, 'kullanici_id');
     }
 }

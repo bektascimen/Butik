@@ -13,9 +13,9 @@ class IsletmeSeeder extends Seeder
     public function run()
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
-        DB::table('isletme')->insert(['isletme_adi' => 'Ötüken Büfe']);
-        DB::table('isletme')->insert(['isletme_adi' => 'Choridor Cafe']);
-        DB::table('isletme')->insert(['isletme_adi' => 'Daniels Coffee']);
+        DB::table('isletme')->truncate();
+        DB::table('isletme')->insert(['isletme_adi' => 'Kom-Şu']);
+        DB::table('isletme')->insert(['isletme_adi' => 'Tokyo']);
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
 }

@@ -11,6 +11,59 @@
 
 (function ($) {
 
+    $(document).ready(function () {
+
+        $("#productFilterBtn").on("click", function (event) {
+            event.preventDefault();
+            filter_data()
+        });
+
+        function filter_data() {
+            $('.filter_data').html('<div id="loading" style="" ></div>');
+            var minimum_fiyat = $('#minamount').val();
+            var maximum_fiyat = $('#maxamount').val();
+            var renk = get_filter('renk');
+            var beden = get_filter('beden');
+            var kategori_id = $('#kategori_id').val();
+            $.ajax({
+                url: site_url + "/urun/filtre",
+                method: "GET",
+                data: {minimum_fiyat, maximum_fiyat, renk, beden, kategori_id},
+                success: function (data) {
+                    console.warn(data)
+                    $('#filter_data').html(data);
+                }
+            });
+        }
+
+        function get_filter(class_name) {
+            var filter = [];
+            $('.' + class_name + ':checked').each(function () {
+                filter.push($(this).val());
+            });
+            return filter;
+        }
+
+        $('.common_selector').click(function () {
+            filter_data();
+        });
+
+        $('#price_range').slider({
+            range: true,
+            min: 1000,
+            max: 65000,
+            values: [1000, 65000],
+            step: 500,
+            stop: function (event, ui) {
+                $('#price_show').html(ui.values[0] + ' - ' + ui.values[1]);
+                $('#hidden_urunMinFiyat').val(ui.values[0]);
+                $('#hidden_urunMaxFiyat').val(ui.values[1]);
+                filter_data();
+            }
+        });
+
+    });
+
     /*------------------
         Preloader
     --------------------*/
@@ -55,7 +108,7 @@
     /*------------------
         Product Slider
     --------------------*/
-   $(".product-slider").owlCarousel({
+    $(".product-slider").owlCarousel({
         loop: true,
         margin: 25,
         nav: true,
@@ -152,7 +205,7 @@
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getFullYear();
 
-    if(mm == 12) {
+    if (mm == 12) {
         mm = '01';
         yyyy = yyyy + 1;
     } else {
@@ -168,7 +221,7 @@
     // Use this for real timer date
     /* var timerdate = "2020/01/01"; */
 
-	$("#countdown").countdown(timerdate, function(event) {
+    $("#countdown").countdown(timerdate, function (event) {
         $(this).html(event.strftime("<div class='cd-item'><span>%D</span> <p>Days</p> </div>" + "<div class='cd-item'><span>%H</span> <p>Hrs</p> </div>" + "<div class='cd-item'><span>%M</span> <p>Mins</p> </div>" + "<div class='cd-item'><span>%S</span> <p>Secs</p> </div>"));
     });
 
@@ -176,47 +229,51 @@
     /*----------------------------------------------------
      Language Flag js
     ----------------------------------------------------*/
-    $(document).ready(function(e) {
-    //no use
-    try {
-        var pages = $("#pages").msDropdown({on:{change:function(data, ui) {
-            var val = data.value;
-            if(val!="")
-                window.location = val;
-        }}}).data("dd");
+    $(document).ready(function (e) {
+        //no use
+        try {
+            var pages = $("#pages").msDropdown({
+                on: {
+                    change: function (data, ui) {
+                        var val = data.value;
+                        if (val != "")
+                            window.location = val;
+                    }
+                }
+            }).data("dd");
 
-        var pagename = document.location.pathname.toString();
-        pagename = pagename.split("/");
-        pages.setIndexByValue(pagename[pagename.length-1]);
+            var pagename = document.location.pathname.toString();
+            pagename = pagename.split("/");
+            pages.setIndexByValue(pagename[pagename.length - 1]);
+            $("#ver").html(msBeautify.version.msDropdown);
+        } catch (e) {
+            // console.log(e);
+        }
         $("#ver").html(msBeautify.version.msDropdown);
-    } catch(e) {
-        // console.log(e);
-    }
-    $("#ver").html(msBeautify.version.msDropdown);
 
-    //convert
-    $(".language_drop").msDropdown({roundedBorder:false});
+        //convert
+        $(".language_drop").msDropdown({roundedBorder: false});
         $("#tech").data("dd");
     });
     /*-------------------
 		Range Slider
 	--------------------- */
-	var rangeSlider = $(".price-range"),
-		minamount = $("#minamount"),
-		maxamount = $("#maxamount"),
-		minPrice = rangeSlider.data('min'),
-		maxPrice = rangeSlider.data('max');
-	    rangeSlider.slider({
-		range: true,
-		min: minPrice,
+    var rangeSlider = $(".price-range"),
+        minamount = $("#minamount"),
+        maxamount = $("#maxamount"),
+        minPrice = rangeSlider.data('min'),
+        maxPrice = rangeSlider.data('max');
+    rangeSlider.slider({
+        range: true,
+        min: minPrice,
         max: maxPrice,
-		values: [minPrice, maxPrice],
-		slide: function (event, ui) {
-			minamount.val('$' + ui.values[0]);
-			maxamount.val('$' + ui.values[1]);
-		}
-	});
-	minamount.val('$' + rangeSlider.slider("values", 0));
+        values: [minPrice, maxPrice],
+        slide: function (event, ui) {
+            minamount.val('$' + ui.values[0]);
+            maxamount.val('$' + ui.values[1]);
+        }
+    });
+    minamount.val('$' + rangeSlider.slider("values", 0));
     maxamount.val('$' + rangeSlider.slider("values", 1));
 
     /*-------------------
@@ -235,16 +292,16 @@
     /*------------------
 		Single Product
 	--------------------*/
-	$('.product-thumbs-track .pt').on('click', function(){
-		$('.product-thumbs-track .pt').removeClass('active');
-		$(this).addClass('active');
-		var imgurl = $(this).data('imgbigurl');
-		var bigImg = $('.product-big-img').attr('src');
-		if(imgurl != bigImg) {
-			$('.product-big-img').attr({src: imgurl});
-			$('.zoomImg').attr({src: imgurl});
-		}
-	});
+    $('.product-thumbs-track .pt').on('click', function () {
+        $('.product-thumbs-track .pt').removeClass('active');
+        $(this).addClass('active');
+        var imgurl = $(this).data('imgbigurl');
+        var bigImg = $('.product-big-img').attr('src');
+        if (imgurl != bigImg) {
+            $('.product-big-img').attr({src: imgurl});
+            $('.zoomImg').attr({src: imgurl});
+        }
+    });
 
     $('.product-pic-zoom').zoom();
 
@@ -252,22 +309,66 @@
 		Quantity change
 	--------------------- */
     var proQty = $('.pro-qty');
-	proQty.prepend('<span class="dec qtybtn">-</span>');
-	proQty.append('<span class="inc qtybtn">+</span>');
-	proQty.on('click', '.qtybtn', function () {
-		var $button = $(this);
-		var oldValue = $button.parent().find('input').val();
-		if ($button.hasClass('inc')) {
-			var newVal = parseFloat(oldValue) + 1;
-		} else {
-			// Don't allow decrementing below zero
-			if (oldValue > 0) {
-				var newVal = parseFloat(oldValue) - 1;
-			} else {
-				newVal = 0;
-			}
-		}
-		$button.parent().find('input').val(newVal);
-	});
+    proQty.prepend('<span class="dec qtybtn">-</span>');
+    proQty.append('<span class="inc qtybtn">+</span>');
+    proQty.on('click', '.qtybtn', function () {
+        var $button = $(this);
+        var oldValue = $button.parent().find('input').val();
+        if ($button.hasClass('inc')) {
+            var newVal = parseFloat(oldValue) + 1;
+        } else {
+            // Don't allow decrementing below zero
+            if (oldValue > 0) {
+                var newVal = parseFloat(oldValue) - 1;
+            } else {
+                newVal = 0;
+            }
+        }
+        $button.parent().find('input').val(newVal);
+    });
+
+    function search(nameKey, myArray) {
+        for (var i = 0; i < myArray.length; i++) {
+            if (myArray[i].il_id == nameKey) {
+                return myArray[i];
+            }
+        }
+    }
+
+    $(document).ready(function () {
+        //Ajax Function to send a get request
+        $.ajax({
+            type: "GET",
+            url: site_url + "/il",
+            dataType: "json",
+            success: function (data) {
+                $.each(data, function (index, value) {
+                    $('#il_id').append($('<option>', {
+                        value: value.id,
+                        text: value.il_adi,
+                    }));
+                });
+            }
+        });
+
+        $("#il_id").change(function () {
+            var el = $(this);
+            $.ajax({
+                type: "GET",
+                url: site_url + "/ilce",
+                data: {il_id: el.val()},
+                dataType: "json",
+                success: function (data) {
+                    $.each(data, function (index, value) {
+                        $('#ilce_id').append($('<option>', {
+                            value: value.id,
+                            text: value.ilce_adi,
+                        }));
+                    });
+                }
+            });
+            $('#ilce_id').prop("disabled", false);
+        });
+    });
 
 })(jQuery);

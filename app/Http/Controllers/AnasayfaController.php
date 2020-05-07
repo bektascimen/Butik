@@ -56,13 +56,15 @@ class AnasayfaController extends Controller
 
         $urunlerIndirimli = Urun::select('urun.*')
             ->join('urun_detay', 'urun_detay.urun_id', 'urun.id')
+            //->join('kategori', 'kategori.id', 'id')
             ->where('urun_detay.gosterIndirimli', 1)
             ->orderBy('guncelleme_tarihi', 'desc')
             ->take(4)->get();
 
         $kategoriler = Kategori::get();
+        $urunler = Urun::get();
 
-        return view('anasayfa', compact('urunlerSlider', 'urunGununFirsati', 'kategoriler', 'urunlerOneCikan', 'urunlerCokSatan', 'urunlerIndirimli'));
+        return view('anasayfa', compact('urunlerSlider', 'urunGununFirsati', 'kategoriler', 'urunlerOneCikan', 'urunlerCokSatan', 'urunlerIndirimli', 'urunler'));
     }
 
 

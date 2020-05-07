@@ -51,7 +51,7 @@
                             @foreach(Cart::getContent() as $urunCartItem)
                             <tbody>
                             <tr>
-                                <td class="cart-pic first-row"><img src="/uploads/urunler/{{$urunCartItem->urun_resmi}}" alt=""></td>
+                                <td class="cart-pic first-row"><img src="/uploads/sepetUrunler/{{$urunCartItem->urun_resmi}}" alt=""></td>
                                 <td class="cart-title first-row">
                                     <a href="{{ route('urun', Str::slug($urunCartItem->name)) }}">{{ $urunCartItem->name }}</a>
                                 </td>

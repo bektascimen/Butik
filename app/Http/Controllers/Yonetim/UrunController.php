@@ -88,8 +88,6 @@ class UrunController extends Controller
             $urun_resmi = request()->urun_resmi;
 
             $dosyaadi = $entry->id . "-" . time() . "." . $urun_resmi->extension();
-            //$dosyaadi = $urun_resmi->getClientOriginalName();
-            //$dosyaadi = $urun_resmi->hashName();
 
             if ($urun_resmi->isValid())
             {

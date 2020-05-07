@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Sepet;
 use App\Models\SepetUrun;
 use App\Models\Urun;
+use App\Models\UrunDetay;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
 use Illuminate\Http\Request;
 
@@ -39,9 +40,32 @@ class SepetController extends Controller
 
             SepetUrun::updateOrCreate(
                 ['sepet_id' => $aktif_sepet->id, 'urun_id' => $urun->id],
-                ['adet' => $request->get("quantity"), 'fiyat' => $urun->fiyat, 'durum' => 'Beklemede', 'urun_resmi' => $urun->detay->urun_resmi]
+                ['adet' => $request->get("quantity"), 'fiyat' => $urun->indirimli_fiyat ?: $urun->fiyat, 'durum' => 'Beklemede', 'urun_resmi' => $urun->detay->urun_resmi]
             );
 
+        }
+
+        if (request()->hasFile('urun_resmi'))
+        {
+            $this->validate(request(), [
+                'urun_resmi' => 'image|mimes:jpg,png,jpeg,gif|max:2048'
+            ]);
+
+            $urun_resmi = request()->file('urun_resmi');
+            $urun_resmi = request()->urun_resmi;
+
+            $dosyaadi = $urun->id . "-" . time() . "." . $urun_resmi->extension();
+
+
+            if ($urun_resmi->isValid())
+            {
+                $urun_resmi->move('uploads/sepetUrunler', $dosyaadi);
+
+                UrunDetay::updateOrCreate(
+                    ['urun_id'=>$urun->id],
+                    ['urun_resmi'=>$dosyaadi]
+                );
+            }
         }
 
         return redirect()

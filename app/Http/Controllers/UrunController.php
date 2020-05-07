@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kategori;
 use App\Models\Urun;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,11 @@ class UrunController extends Controller
     public function index($slug_urunadi)
     {
         $urun = Urun::whereSlug($slug_urunadi)->firstOrFail();
-        return view('urun', compact('urun'));
+        $urunBedenFiltre = Urun::all()->groupBy("beden");
+        $urunRenkFiltre = Urun::where('renk')->get();
+        $kategori = Kategori::get();
+
+        return view('urun', compact('urun','kategori', 'urunBedenFiltre', 'urunRenkFiltre'));
     }
 
     public function ara()
