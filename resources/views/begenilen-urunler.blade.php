@@ -28,7 +28,7 @@
                                  <div class="pi-pic">
                                         <img src="/uploads/urunler/{{$begen->urun->detay->urun_resmi}}" alt="">
                                     <div class="icon">
-                                        <i class="icon_heart_alt"></i>
+                                            <a href="{{route('begenilen-urunler.sil', ['id'=>$begen->id])}}" style="float: left"><i class="icon_heart_alt"></i></a>
                                     </div>
                             <ul>
                                 <li class="w-icon active">
@@ -44,7 +44,6 @@
                             </ul>
                                  </div>
                             <div class="pi-text">
-                                <div class="catagory-name">Coat</div>
                                 <a href="{{ route('urun', $begen->urun->slug) }}">
                                     <h5>{{$begen->urun->urun_adi}}</h5>
                                 </a>

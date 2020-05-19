@@ -1,5 +1,6 @@
 @extends('layouts.master')
 @section('content')
+
     <!-- Breadcrumb Section Begin -->
     <div class="breacrumb-section">
         <div class="container">
@@ -40,41 +41,33 @@
                                 <div class="price-input">
                                     <input type="text" id="minamount" value="{{$urunMinFiyat}}">
                                     <input type="text" id="maxamount" value="{{$urunMaxFiyat}}">
+
                                 </div>
                             </div>
                             <div
                                 class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
                                 data-min="{{$urunMinFiyat}}" data-max="{{$urunMaxFiyat}}">
-                                <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
+                                <div id="price_range"></div>
                                 <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
                                 <span tabindex="1" class="ui-slider-handle ui-corner-all ui-state-default"></span>
                             </div>
                         </div>
                     </div>
-                    <div class="filter-widget">
-                        <h4 class="fw-title">Renk</h4>
-                        <div class="fw-color-choose">
-                            @foreach($urunRenkFiltre as $key => $urunRenk)
-                                <div>
-                                    <input type="checkbox" class="renk" value="{{$key}}">
-                                    <label for="renk">{{$key}}</label>
-                                </div>
-                            @endforeach
+                    @foreach($urunFiltre as $key => $filtre)
+                        <div class="filter-widget">
+                            <h4 class="fw-title">{{ $filtre->ozellik_adi }}</h4>
+                            <div class="fw-color-choose">
+                                @foreach($filtre->degerler as $key => $deger)
+                                    <div>
+                                        <input id="filtre-{{$deger->id}}" type="checkbox" class="filtre"
+                                               value="{{$deger->id}}">
+                                        <label for="filtre-{{$deger->id}}">{{$deger->deger}}</label>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
-                    </div>
-                    <div class="filter-widget">
-                        <h4 class="fw-title">Beden</h4>
-                        <div class="fw-size-choose">
-                            @foreach($urunBedenFiltre as $key => $value)
-                                <div class="sc-item">
-                                    <label for="size-{{$key}}">{{$key}}</label>
-                                    <input type="checkbox" class="beden" id="size-{{$key}}" name="size{{$key}}"
-                                           value="{{$key}}">
-                                </div>
-                            @endforeach
-                        </div>
-                        <a href="#" id="productFilterBtn" class="filter-btn" style="margin-top: 40px">Filter</a>
-                    </div>
+                    @endforeach
+                    <a href="#" id="productFilterBtn" class="btn btn-warning">Filtrele</a>
                 </div>
                 <div class="col-lg-9 order-1 order-lg-2">
                     <div class="product-show-option">

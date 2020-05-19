@@ -48,7 +48,6 @@
 <script src="{{asset("js/main.js")}}"></script>
 <script src="{{asset("js/fabric.min.js")}}"></script>
 <script src="{{asset("js/jquery.min.js")}}"></script>
-
 </body>
 
 </html>

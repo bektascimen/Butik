@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ozellikler;
 use App\Models\Sepet;
 use App\Models\SepetUrun;
 use App\Models\Urun;
 use App\Models\UrunDetay;
+use App\Models\UrunNitelik;
+use App\Models\Renk;
+use App\Models\Beden;
+use App\Models\UrunOzellikleri;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
 use Illuminate\Http\Request;
 
@@ -24,7 +29,17 @@ class SepetController extends Controller
     public function ekle(Request $request)
     {
         $urun = Urun::find(request('id'));
-        $cartItem = Cart::add($urun->id, $urun->urun_adi, ($urun->indirimli_fiyat ?: $urun->fiyat) , $request->get("quantity"), ['slug' => $urun->slug, 'urun_resmi'=> $urun->detay->urun_resmi]);
+
+        $nitelik = UrunOzellikleri::find(request('id'));
+        dd($nitelik);
+
+        $cartItem = Cart::add($urun->id, $urun->urun_adi, ($urun->indirimli_fiyat ?: $urun->fiyat) , $request->get("quantity"),
+            [
+                'slug' => $urun->slug,
+                'urun_resmi'=> $urun->detay->urun_resmi,
+                'beden' => $nitelik->ozellikDegerAdi->ozellik_deger_id,
+                'renk' => $nitelik->ozellikDegerAdi->ozellik_deger_id
+            ]);
 
         if (auth()->check()) {
             $aktif_sepet_id = session()->get('aktif_sepet_id');
@@ -40,8 +55,12 @@ class SepetController extends Controller
 
             SepetUrun::updateOrCreate(
                 ['sepet_id' => $aktif_sepet->id, 'urun_id' => $urun->id],
-                ['adet' => $request->get("quantity"), 'fiyat' => $urun->indirimli_fiyat ?: $urun->fiyat, 'durum' => 'Beklemede', 'urun_resmi' => $urun->detay->urun_resmi]
-            );
+                ['adet' => $request->get("quantity"), 'fiyat' => $urun->indirimli_fiyat ?: $urun->fiyat,
+                    'durum' => 'Beklemede',
+                    'urun_resmi' => $urun->detay->urun_resmi,
+                    'beden' => $urun->urunOzellikleri->ozellik_deger_id,
+                    'renk' => $urun->urunOzellikleri->ozellik_deger_id,
+                ]);
 
         }
 

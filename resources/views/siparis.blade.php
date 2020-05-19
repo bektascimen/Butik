@@ -63,6 +63,8 @@
                         <tr>
                             <th></th>
                             <th class="text-center">Ürün</th>
+                            <th class="text-center">Renk</th>
+                            <th class="text-center">Beden</th>
                             <th class="text-center">Birim Fiyatı</th>
                             <th class="text-center">Adet</th>
                             <th class="text-center">Toplam Ücret</th>
@@ -82,6 +84,8 @@
                                         {{$sepet_urun->urun->urun_adi}}
                                     </a>
                                 </td>
+                                <td class="price text-center">{{ $sepet_urun->renk}}</td>
+                                <td class="price text-center">{{ $sepet_urun->beden}}</td>
                                 <td class="price text-center">{{ $sepet_urun->fiyat}}₺</td>
                                 <td class="price text-center">{{ $sepet_urun->adet}}</td>
                                 <td class="price text-center">{{ $sepet_urun->fiyat * $sepet_urun->adet}}₺</td>

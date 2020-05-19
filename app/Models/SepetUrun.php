@@ -27,5 +27,13 @@ class SepetUrun extends Model
         return $this->hasOne('App\Models\UrunDetay')->withDefault();
     }
 
+    public function bedenler()
+    {
+        return $this->hasOne('App\Models\Beden')->withDefault();
+    }
 
+    public function renkler()
+    {
+        return $this->hasOne('App\Models\Renk')->withDefault();
+    }
 }

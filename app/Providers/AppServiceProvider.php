@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-
+use App\Contracts\NiteliklerContract;
+use App\Repositories\NitelikRepository;
 
 class AppServiceProvider extends ServiceProvider
 {

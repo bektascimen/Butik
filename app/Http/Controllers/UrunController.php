@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kategori;
+use App\Models\Ozellikler;
 use App\Models\Urun;
+use App\Models\UrunOzellikleri;
 use Illuminate\Http\Request;
 
 class UrunController extends Controller
@@ -16,11 +18,15 @@ class UrunController extends Controller
     public function index($slug_urunadi)
     {
         $urun = Urun::whereSlug($slug_urunadi)->firstOrFail();
-        $urunBedenFiltre = Urun::all()->groupBy("beden");
-        $urunRenkFiltre = Urun::where('renk')->get();
         $kategori = Kategori::get();
 
-        return view('urun', compact('urun','kategori', 'urunBedenFiltre', 'urunRenkFiltre'));
+        $urunOzellikleri = UrunOzellikleri::where("urun_id", $urun->id)->pluck("ozellik_deger_id")->toArray();
+
+        $ozellikler = Ozellikler::whereHas("degerler", function ($query) use ($urunOzellikleri) {
+            $query->whereIn("id", $urunOzellikleri);
+        })->get();
+
+        return view('urun', compact('urun','kategori', 'ozellikler', "urunOzellikleri"));
     }
 
     public function ara()

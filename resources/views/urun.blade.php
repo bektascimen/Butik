@@ -1,14 +1,32 @@
 @extends('layouts.master')
 @section('content')
+    <style>
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            -o-appearance: none;
+            -ms-appearance: none;
+            appearance: none;
+            display: block;
+            margin: 30px 0;
+            padding: 10px 50px 10px 10px;
+            background: url("{{asset('img/select.png')}}") no-repeat 95% center;
+            background-color: #222222;
+            color: #ffffff;
+            border-radius: 4px;
+            border: 2px solid #ffffff;
+            width: 280px;
+        }
+    </style>
     <!-- Breadcrumb Section Begin -->
     <div class="breacrumb-section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb-text product-more">
-                        <a href="./home.html"><i class="fa fa-home"></i> Home</a>
-                        <a href="./shop.html">Shop</a>
-                        <span>Detail</span>
+                        <a href="/"><i class="fa fa-home"></i> Anasayfa</a>
+                        <span>{{$urun->urun_adi}}</span>
+                        <input type="hidden" name="kategori_id" id="kategori_id" value="{{$urun->id}}">
                     </div>
                 </div>
             </div>
@@ -28,14 +46,14 @@
                             </div>
                             <div class="product-thumbs">
                                 <div class="product-thumbs-track ps-slider owl-carousel">
-                                    <div class="pt active" data-imgbigurl="img/product-single/product-1.jpg"><img
-                                            src="../img/product-single/product-1.jpg" alt=""></div>
-                                    <div class="pt" data-imgbigurl="img/product-single/product-2.jpg"><img
-                                            src="../img/product-single/product-2.jpg" alt=""></div>
-                                    <div class="pt" data-imgbigurl="img/product-single/product-3.jpg"><img
-                                            src="../img/product-single/product-3.jpg" alt=""></div>
-                                    <div class="pt" data-imgbigurl="img/product-single/product-3.jpg"><img
-                                            src="../img/product-single/product-3.jpg" alt=""></div>
+                                    <div class="pt active"
+                                         data-imgbigurl="/uploads/urunler/{{$urun->detay->urun_resmi}}"><img
+                                            src="/uploads/urunler/{{$urun->detay->urun_resmi}}" alt=""></div>
+                                    <div class="pt active"
+                                         data-imgbigurl="/uploads/urunler/{{$urun->detay->urun_resmi2}}"><img
+                                            src="/uploads/urunler/{{$urun->detay->urun_resmi2}}" alt=""></div>
+                                    <div class="pt" data-imgbigurl="/uploads/urunler/{{$urun->detay->urun_resmi3}}"><img
+                                            src="/uploads/urunler/{{$urun->detay->urun_resmi3}}" alt=""></div>
                                 </div>
                             </div>
                         </div>
@@ -47,58 +65,59 @@
                                     <form action="{{route('begenilen-urunler.ekle')}}" method="post">
                                         <input type="hidden" value="{{$urun->id}}" name="urun_id">
                                         @csrf
-                                        <button style="float: left" type="submit" class="heart-icon"><i class="icon_heart_alt"></i></button>
+                                        <button style="float: left" type="submit" class="heart-icon"><i
+                                                class="icon_heart_alt"></i></button>
                                     </form>
 
                                 </div>
                                 <div class="pd-desc">
                                     <h4>{{ $urun->indirimli_fiyat ?: $urun->fiyat }}₺</h4>
                                 </div>
-                                <div class="pd-color">
-                                    <h6>Color</h6>
-                                    <div class="pd-color-choose">
-                                        @foreach($urunRenkFiltre as $key => $urunRenk)
-                                            <div>
-                                                <input type="checkbox" class="renk" value="{{$key}}">
-                                                <label for="renk">{{$key}}</label>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                                <div class="pd-size-choose">
-                                    @foreach($urunBedenFiltre as $key => $value)
-                                        <div class="sc-item">
-                                            <label for="size-{{$key}}">{{$key}}</label>
-                                            <input type="checkbox" class="beden" id="size-{{$key}}" name="size{{$key}}"
-                                                   value="{{$key}}">
-                                        </div>
-                                    @endforeach
-                                </div>
                                 <div class="quantity">
                                     <form action="{{route('sepet.ekle')}}" method="post">
                                         <input type="hidden" name="id" value="{{$urun->id}}">
                                         {{ csrf_field() }}
+
+                                        <div class="pd-color">
+                                            <div class="pd-color-choose">
+                                                @foreach($ozellikler as $key => $ozellik)
+                                                    <div class="filter-widget">
+                                                        <h4 class="fw-title">{{ $ozellik->ozellik_adi }}</h4>
+                                                        <div class="fw-color-choose">
+                                                            <div>
+                                                                <select id="filtre-{{$ozellik->id}}" class="filtre">
+                                                                    @foreach($ozellik->degerler()->whereIn('id', $urunOzellikleri)->get() as $key => $deger)
+                                                                        <option
+                                                                            value="{{$deger->id}}">{{$deger->deger}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
                                         <div class="pro-qty">
                                             <input class="input" type="number" name="quantity" min="0">
                                         </div>
-                                        <button type="submit" value="Sepete Ekle" class="primary-btn pd-cart">Sepete Ekle</button>
+                                        <button type="submit" value="Sepete Ekle" class="primary-btn pd-cart">Sepete
+                                            Ekle
+                                        </button>
                                     </form>
                                 </div>
                                 <ul class="pd-tags">
+                                    <li><span>Ürün Kodu</span>:
+                                        {{$urun->urun_kodu}}
+                                    </li>
                                     <li><span>Kategori</span>:
                                         @foreach($urun->kategoriler as $kategori)
                                             {{$kategori->kategori_adi}}
                                         @endforeach
                                     </li>
+                                    <li><span>İşletme</span>:
+                                        {{$urun->isletmeAdi->isletme_adi}}
+                                    </li>
                                 </ul>
-                                <div class="pd-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <span>(5)</span>
-                                </div>
                                 <div class="pd-desc">
                                     <p>{{ $urun->aciklama }}</p>
                                 </div>

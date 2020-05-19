@@ -20,6 +20,24 @@
         </div>
 
     @include('partials.alert')
+    @if(Session::has('flash_message_error'))
+        <div class="alert alert-danger alert-block">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">$times;</span>
+            </button>
+            <strong>{{session('flash_message_error')}}</strong>
+        </div>
+    @endif
+    @if(Session::has('flash_message_success'))
+        <div class="alert alert-danger alert-block">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">$times;</span>
+            </button>
+            <strong>{{session('flash_message_success')}}</strong>
+        </div>
+    @endif
+    <div id="message_success" style="display: none;" class="alert alert-success">Ürün Satışa Açık</div>
+    <div id="message_error" style="display: none;" class="alert alert-danger">Ürün Satışa Kapalı</div>
 
     <div class="table-responsive">
         <table class="table table-hover table-bordered">
@@ -30,7 +48,7 @@
                 <th>Ürün Adı</th>
                 <th>Slug</th>
                 <th>Fiyat</th>
-                <th>Kayıt Tarihi</th>
+                <th>Statü</th>
                 <th></th>
             </tr>
             </thead>
@@ -49,8 +67,18 @@
                 <td>{{$entry->urun_adi}}</td>
                 <td>{{ $entry->slug }}</td>
                 <td>{{ $entry->fiyat }}</td>
-                <td>{{ $entry->olusturma_tarihi }}</td>
+                <td>
+                    <input type="checkbox" class="ProductStatus btn btn-success" rel="{{ $entry->id }}"
+                           data-toggle="toggle" data-on="On"
+                           data-of="Off" data-onstyle="success"
+                           data-offstyle="danger"
+                    @if($entry['status'] == "1") checked @endif>
+                    <div id="myElem" style="display: none;" class="alert alert-success">Statü Kapalı</div>
+                </td>
                 <td style="width: 100px">
+                    <a href="{{route('yonetim.urun.nitelikekle', $entry->id)}}" class="btn btn-xs btn-info" data-toggle="tooltip" data-placement="top" title="Nitelik Ekle">
+                        <span class="fa fa-plus"></span>
+                    </a>
                     <a href="{{route('yonetim.urun.duzenle', $entry->id)}}" class="btn btn-xs btn-success" data-toggle="tooltip" data-placement="top" title="Düzenle">
                         <span class="fa fa-pencil"></span>
                     </a>

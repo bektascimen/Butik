@@ -3,6 +3,7 @@
         <div class="col-md-12">Bu kategoride henüz ürün bulunmamaktadır.</div>
     @endif
     @foreach($urunler as $urun)
+        @if($urun['status']==1)
         <div class="col-lg-4 col-sm-6">
             <div class="product-item">
                 <div class="pi-pic">
@@ -36,5 +37,6 @@
                 </div>
             </div>
         </div>
+    @endif
     @endforeach
 </div>

@@ -21,9 +21,6 @@
             }
         }
     </style>
-
-
-
     <!-- Hero Section Begin -->
     <section class="hero-section">
         <img src="../img/gif.gif" alt="">
@@ -68,9 +65,6 @@
     <div class="banner-section spad">
         <div class="container-fluid">
             <div class="row" style="padding-left: 150px;">
-
-                @foreach($kategoriler as $kategori)
-                @endforeach
                 <div class="col-lg-4">
                     <div style="width: 100%;">
                         <div style="width: 100%;">
@@ -96,7 +90,6 @@
                         </a>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -118,7 +111,12 @@
                                 <div class="pi-pic">
                                     <img src="/uploads/urunler/{{$urun->detay->urun_resmi}}" alt="">
                                     <div class="icon">
-                                        <i class="icon_heart_alt"></i>
+                                        <form action="{{route('begenilen-urunler.ekle')}}" method="post">
+                                            <input type="hidden" value="{{$urun->id}}" name="urun_id">
+                                            @csrf
+                                            <button style="float: left;" type="submit" class="main-btn icon-btn"><i
+                                                    class="icon_heart_alt"></i></button>
+                                        </form>
                                     </div>
                                     <ul>
                                         <li class="w-icon active">

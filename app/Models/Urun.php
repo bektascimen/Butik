@@ -27,6 +27,15 @@ class Urun extends Model
         return $this->belongsToMany('App\Models\Kategori');
     }
 
+    public function urunOzellikleri()
+    {
+        return $this->belongsTo(UrunOzellikleri::class);
+    }
+
+    function urunAdi()
+    {
+        return $this->belongsTo(Ozellikler::class, 'ozellik_id');
+    }
 
     public function detay()
     {

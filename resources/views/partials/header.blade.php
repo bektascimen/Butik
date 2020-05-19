@@ -101,7 +101,7 @@
                 <div class="col-lg-2 col-md-2">
                     <div class="logo">
                         <a href="{{route('anasayfa')}}">
-                            <img src="./img/logo.png" alt="">
+                            <img src="{{asset("img/logo.png")}}" alt="">
                         </a>
                     </div>
                 </div>
@@ -139,7 +139,7 @@
     <div class="nav-item">
         <div class="container">
             <nav class="nav-menu mobile-menu">
-                @include("menu.item", ["items" => $menuKategoriler, "child" => 0])
+                @include("menu.item", ["items" => $menuKategoriler ?? '', "child" => 0])
             </nav>
             <div id="mobile-menu-wrap"></div>
         </div>

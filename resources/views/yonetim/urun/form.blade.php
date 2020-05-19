@@ -160,6 +160,23 @@
             <label for="urun_resmi">Ürün Resmi</label>
             <input type="file" id="urun_resmi" name="urun_resmi">
         </div>
+        <br><br><br>
+        <div class="form-group">
+            @if($entry->detay->urun_resmi2!=null)
+                <img src="/uploads/urunler/{{$entry->detay->urun_resmi2}}" style="height: 100px; margin-right: 20px;" class="thumbnail pull-left">
+            @endif
+            <label for="urun_resmi2">Ürün Resmi 2</label>
+            <input type="file" id="urun_resmi2" name="urun_resmi2">
+        </div>
+        <br><br><br>
+        <div class="form-group">
+            @if($entry->detay->urun_resmi3!=null)
+                <img src="/uploads/urunler/{{$entry->detay->urun_resmi3}}" style="height: 100px; margin-right: 20px;" class="thumbnail pull-left">
+            @endif
+            <label for="urun_resmi3">Ürün Resmi 3</label>
+            <input type="file" id="urun_resmi3" name="urun_resmi3">
+        </div>
+        <br><br><br>
         <div class="form-group">
             @if($entry->detay->slider_resmi!=null)
                 <img src="/uploads/slider/{{$entry->detay->slider_resmi}}" style="height: 100px; margin-right: 20px;" class="thumbnail pull-left">
