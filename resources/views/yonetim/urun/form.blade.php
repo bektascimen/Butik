@@ -67,8 +67,24 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
+                        <label for="urun_adi">Ürün Kodu</label>
+                        <input type="text" class="form-control" id="urun_kodu" name="urun_kodu" placeholder="Ürün Kodu" value="{{ old('urun_kodu', $entry->urun_kodu) }}">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
                         <label for="urun_adi">Ürün Adı</label>
                         <input type="text" class="form-control" id="urun_adi" name="urun_adi" placeholder="Ürün Adı" value="{{ old('urun_adi', $entry->urun_adi) }}">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="renk">Ürün Rengi</label>
+                        <input type="text" class="form-control" id="renk" name="renk" placeholder="Ürün Rengi" value="{{ old('renk', $entry->renk) }}">
                     </div>
                 </div>
             </div>
@@ -106,6 +122,20 @@
                         <option value="1" selected>Kom-Şu</option>
                         <option value="2">Tokyo</option>
                     </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="box">
+                        <label for="status">Ürün Statüsü</label><br>
+                        <select name="status" id="status">
+                            <option value="1" selected>Satışa Açık</option>
+                            <option value="0">Satışa Kapalı</option>
+                        </select>
                     </div>
                 </div>
             </div>

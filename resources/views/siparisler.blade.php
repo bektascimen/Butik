@@ -1161,7 +1161,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb-text product-more">
-                        <a href="./index.html"><i class="fa fa-home"></i> Anasayfa</a>
+                        <a href="/"><i class="fa fa-home"></i> Anasayfa</a>
                         <span>Siparişler</span>
                     </div>
                 </div>
@@ -1197,19 +1197,6 @@
                                     <div id="sayfa_orta">
                                         <div class="sayfa_detay p_a_15">
                                             <form method="post" action="">
-                                                <div class="alert alert-info">
-                                                    <div class="col-md-6 col-sm-6 p_a_0 f_16">
-                                                        Sipariş Miktarı <strong>{{count($siparis->id)}}</strong>
-                                                    </div>
-                                                    <div class="col-md-6 col-sm-6 p_a_0 f_16 mobil_sagsol">
-                                                        Sipariş Toplamı <strong>{{count($siparis_tutari)}}</strong> TL
-                                                    </div>
-
-                                                    <div class="clearfix"></div>
-
-                                                    <div class="clearfix"></div>
-
-                                                </div>
                                                 <table class="table table-hover table-striped">
                                                     <thead>
                                                     <tr>

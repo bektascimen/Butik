@@ -12,7 +12,7 @@
             </button>
         </div>
         <h2 class="sub-header">
-            Kullanıcı {{@$entry->id > 0 ? "Düzenle" : "Ekle"}}
+            Kategori {{@$entry->id > 0 ? "Düzenle" : "Ekle"}}
         </h2>
 
         @include('partials.error')
@@ -24,7 +24,7 @@
                         <label for="parent_id">Üst Kategori Adı</label>
                         <select name="parent_id" id="parent_id" class="form-control">
                             <option value="0">Ana Kategori</option>
-                            @foreach($kategoriler as $kategori)
+                            @foreach($menuKategoriler as $kategori)
                             <option value="{{$kategori->id}}">{{$kategori->kategori_adi}}</option>
                             @endforeach
                         </select>
@@ -44,7 +44,7 @@
                     <div class="form-group">
                         <label for="slug">Slug</label>
                         <input type="hidden" name="original_slug" value="{{old('slug', $entry->slug)}}">
-                        <input type="text" class="form-control" id="slug" name="slug" placeholder="slug" value="{{old('slug', $entry->slug)}}">
+                        <input type="text" class="form-control" id="slug" name="slug" placeholder="Slug" value="{{old('slug', $entry->slug)}}">
                     </div>
                 </div>
             </div>

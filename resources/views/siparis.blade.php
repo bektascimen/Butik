@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb-text product-more">
-                        <a href="./index.html"><i class="fa fa-home"></i> Anasayfa</a>
+                        <a href="/"><i class="fa fa-home"></i> Anasayfa</a>
                         <span>Sipariş</span>
                     </div>
                 </div>
@@ -52,9 +52,37 @@
             <div class="row">
                 @include('partials.alert')
                 <div class="col-lg-12">
-                    <a href="{{route('siparisler')}}" class="primary-btn">
-                        <i class="fa fa-undo"></i> SİPARİŞLERE DÖN
-                    </a><br><br><br>
+
+
+                    <div class="row" style="padding-bottom: 40px;">
+                        <a href="{{route('siparisler')}}" class="primary-btn" style="float: left; right: 40px;">
+                            <i class="fa fa-undo"></i> SİPARİŞLERE DÖN
+                        </a>&nbsp&nbsp
+                        @if($siparis->durum == "Siparişiniz Kargoya Verildi" && $siparis->st_no != NULL)
+                            <a href="#" class="btn btn-info" style="float: left" data-toggle="modal" data-target="#myModal">
+                                <i class="fa fa-truck"></i> Sipariş Takip No
+                            </a>
+                        @endif
+
+                        <div class="modal fade" id="myModal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4>Sipariş Takip Numaranız</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        Yurtiçi Kargo Sipariş Takip No: {{$siparis->st_no}}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="primary-btn" data-dismiss="modal">Kapat</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
                     <div class="contact-title">
                         <h3>SİPARİŞ (SP-{{$siparis->id}})</h3>
                     </div>
@@ -68,7 +96,6 @@
                             <th class="text-center">Birim Fiyatı</th>
                             <th class="text-center">Adet</th>
                             <th class="text-center">Toplam Ücret</th>
-                            <th class="text-center">Ödeme Yöntemi</th>
                         </tr>
                         </thead>
                         @foreach($siparis->sepet->sepet_urunler as $sepet_urun)
@@ -84,12 +111,11 @@
                                         {{$sepet_urun->urun->urun_adi}}
                                     </a>
                                 </td>
-                                <td class="price text-center">{{ $sepet_urun->renk}}</td>
-                                <td class="price text-center">{{ $sepet_urun->beden}}</td>
+                                <td class="price text-center">{{ $sepet_urun->renk }}</td>
+                                <td class="price text-center">{{ nitelik($sepet_urun->beden)->deger}}</td>
                                 <td class="price text-center">{{ $sepet_urun->fiyat}}₺</td>
                                 <td class="price text-center">{{ $sepet_urun->adet}}</td>
                                 <td class="price text-center">{{ $sepet_urun->fiyat * $sepet_urun->adet}}₺</td>
-                                <td class="text-center">{{ $siparis->odeme_yontemi}}</td>
                             </tr>
                             </tbody>
                         @endforeach
@@ -100,17 +126,12 @@
                             <div class="row">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="m_b_20">
+                                        <div class="col-md-2 col-sm-2 sptAlt_Satir_Sol">Teslimat Adresi:</div>
+                                        <div class="col-md-4 col-sm-4 sptAlt_Satir_Sag sol">{{ $siparis->teslimat_adresi }}</div>
+                                        <div class="col-md-2 col-sm-2 sptAlt_Satir_Sol">Fatura Adresi:</div>
+                                        <div class="col-md-4 col-sm-4 sptAlt_Satir_Sag sol">{{ $siparis->fatura_adresi }}</div>
                                         <div class="col-md-2 col-sm-2 sptAlt_Satir_Sol">Toplam Tutar:</div>
                                         <div class="col-md-4 col-sm-4 sptAlt_Satir_Sag sol">{{ $siparis->siparis_tutari }}₺</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <div class="m_b_20">
-                                        <div class="col-md-2 col-sm-2 sptAlt_Satir_Sol">Sipariş Durumu:</div>
-                                        <div class="col-md-4 col-sm-4 sptAlt_Satir_Sag sol">{{ $siparis->durum }}</div>
                                     </div>
                                 </div>
                             </div>

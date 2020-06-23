@@ -88,9 +88,15 @@
                             <a href="{{route('siparisler')}}"><i class="fa fa-suitcase"></i> Siparişlerim</a>
                         </div>
                     </div>
-                    <div style="float: right">
-                        <a href="#" class="x" type="submit"><i class="fa fa-truck"></i> Siparişim Nerede?</a>
+                    <div class="dropdown" style="float:right;">
+                        <button class="dropbtn"><i class="fa fa-truck"></i> Siparişim Nerede?</button>
+                        <div class="dropdown-content">
+                            <div style="padding-top: 10px; padding-left: 10px; padding-right: 10px;">
+                                <p>Siparişleriniz kargoya verildikten sonra sipariş detaylarınızdan kargo bilgilerinizi öğrenebilirsiniz.</p>
+                            </div>
+                        </div>
                     </div>
+
             @endif
         </div>
     </div>
@@ -105,7 +111,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-7 col-md-7">
+                <div class="col-lg-7 col-md-7" style="padding-top: 30px;">
                     <div class="advanced-search">
                         <div class="input-group">
                             <form action="{{ route('urun_ara') }}" method="post">
@@ -117,7 +123,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 text-right col-md-3">
+                <div class="col-lg-3 text-right col-md-3" style="padding-top: 30px;">
                     <ul class="nav-right">
                         <li class="heart-icon">
                             <a href="{{route('begenilen-urunler')}}">

@@ -2,14 +2,15 @@
 @section('title','Ürün Nitelik Ekle')
 @section('content')
     <style>
-        .box{
+        .box {
             position: relative;
             display: block;
             width: 200px;
             height: 40px;
             line-height: 1.5;
         }
-        .box select{
+
+        .box select {
             outline: none;
             box-shadow: none;
             border: none;
@@ -22,14 +23,17 @@
             font-size: 16px;
             cursor: pointer;
         }
-        .box option{
+
+        .box option {
             background-color: #7a8186;
             font-size: 15px;
         }
-        .box option:checked{
+
+        .box option:checked {
             background-color: #103550;
             color: #fff;
         }
+
         .box:after {
             content: '\25BC';
             position: fixed;
@@ -43,7 +47,8 @@
             -o-transition: .25s all ease;
             transition: .25s all ease;
         }
-        .box:hover:after{
+
+        .box:hover:after {
             color: #fff;
         }
 
@@ -66,41 +71,56 @@
     <h1 class="page-header">Ürün Nitelik Ekle</h1>
 
     <div class="show-product" style="padding-bottom: 10px;">
-        <a href="{{route('yonetim.urun.duzenle', $urunNitelik->id)}}" class="btn btn-info"><i class="fa fa-eye"> Ürünü Gör</i></a>
+        <a href="{{route('yonetim.urun.duzenle', $urunNitelik->id)}}" class="btn btn-info"><i class="fa fa-eye"> Ürünü
+                Gör</i></a>
     </div>
 
     <form action="{{route('yonetim.urun.nitelikekle', $urunNitelik->id)}}" method="post" enctype="multipart/form-data">
         {{csrf_field()}}
+        <input type="hidden" name="urun_id" value="{{$urunNitelik->id}}">
 
         @include('partials.error')
         @include('partials.alert')
 
-        <table>
+        <table class="table table-striped">
             <tr>
-                <th>Ürün Kodu</th>
                 <th>Beden</th>
-                <th>Fiyat</th>
                 <th>Stok</th>
+                <th>İşlemler</th>
             </tr>
             @foreach($urunNitelikListele as $nitelik)
-            <tr>
-                <td>{{$nitelik->urun_kodu}}</td>
-                <td>{{$nitelik->beden}}</td>
-                <td>{{$nitelik->fiyat}}</td>
-                <td>{{$nitelik->stok}}</td>
-            </tr>
+                <tr>
+                    <td>{{nitelik($nitelik->ozellik_deger_id)->deger}}</td>
+                    <td><input type="text" value="{{$nitelik->stok}}" class="align-content-center"></td>
+                    <td></td>
+                </tr>
             @endforeach
         </table>
 
         <div class="form-group" style="padding-top: 50px;">
             <div class="field_wrapper">
-                <div style="display: flex;">
-                    <input type="text" name="urun_kodu[]" id="urun_kodu" placeholder="Ürün Kodu" class="form-control" style="width: 200px; margin-right: 5px;"/>
-                    <input type="text" name="beden[]" id="beden" placeholder="Beden" class="form-control" style="width: 200px; margin-right: 5px;"/>
-                    <input type="text" name="fiyat[]" id="fiyat" placeholder="Fiyat" class="form-control" style="width: 200px; margin-right: 5px;"/>
-                    <input type="text" name="stok[]" id="stok" placeholder="Stok" class="form-control" style="width: 200px; margin-right: 5px;"/>
-                    <a href="javascript:void(0);" class="add_button" title="Add Field">Ekle</a>
-                </div>
+                @foreach($ozellikler as $key => $ozellik)
+                    <div class="filter-widget">
+                        <h4 class="fw-title">{{ $ozellik->ozellik_adi }}</h4>
+                        <div class="fw-color-choose">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <select class="form-control"
+                                            id="filtre-{{$ozellik->id}}" name="nitelik[{{$key}}][]">
+                                        @foreach($ozellik->degerler()->get() as $deger)
+                                            <option
+                                                value="{{$deger->id}}">{{$deger->deger}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" name="stok[{{$key}}][]" id="stok" placeholder="Stok" class="form-control"/>
+                                    <a href="javascript:void(0);" class="add_button" title="Add Field">Ekle</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
         <div class="add-button">
@@ -110,30 +130,36 @@
 @endsection
 
 @section('head')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
 @endsection
 
 @section('footer')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(document).ready(function () {
             var maxField = 10; //Input fields increment limitation
             var addButton = $('.add_button'); //Add button selector
             var wrapper = $('.field_wrapper'); //Input field wrapper
-            var fieldHTML = '<div style="display: flex;"><input type="text" name="urun_kodu[]" id="urun_kodu" placeholder="Ürün Kodu" class="form-control" style="width: 200px; margin-right: 5px; margin-top: 5px;"/><input type="text" name="beden[]" id="beden" placeholder="Beden" class="form-control" style="width: 200px; margin-right: 5px; margin-top: 5px;"/><input type="text" name="fiyat[]" id="fiyat" placeholder="Fiyat" class="form-control" style="width: 200px; margin-right: 5px; margin-top: 5px;"/><input type="text" name="stok[]" id="stok" placeholder="Stok" class="form-control" style="width: 200px; margin-right: 5px; margin-top: 5px;"/><a href="javascript:void(0);" class="remove_button">Kaldır</a></div>'; //New input field html
+            var fieldHTML = '<div style="display: flex;"><select class="form-control"\n' +
+                '                                            id="filtre-{{$ozellik->id}}" name="nitelik[{{$key}}][]">\n' +
+                '                                        @foreach($ozellik->degerler()->get() as $deger)\n' +
+                '                                            <option\n' +
+                '                                                value="{{$deger->id}}">{{$deger->deger}}</option>\n' +
+                '                                        @endforeach\n' +
+                '                                    </select><input type="text" name="stok[]" id="stok" placeholder="Stok" class="form-control" style="width: 200px; margin-right: 5px; margin-top: 5px;"/><a href="javascript:void(0);" class="remove_button">Kaldır</a></div>'; //New input field html
             var x = 1; //Initial field counter is 1
 
             //Once add button is clicked
-            $(addButton).click(function(){
+            $(addButton).click(function () {
                 //Check maximum number of input fields
-                if(x < maxField){
+                if (x < maxField) {
                     x++; //Increment field counter
                     $(wrapper).append(fieldHTML); //Add field html
                 }
             });
 
             //Once remove button is clicked
-            $(wrapper).on('click', '.remove_button', function(e){
+            $(wrapper).on('click', '.remove_button', function (e) {
                 e.preventDefault();
                 $(this).parent('div').remove(); //Remove field html
                 x--; //Decrement field counter

@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Yonetim;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kategori;
+use App\Models\Ozellikler;
 use App\Models\Urun;
 use App\Models\UrunDetay;
 use App\Models\UrunNitelik;
+use App\Models\UrunOzellikleri;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -45,15 +47,18 @@ class UrunController extends Controller
 
     public function kaydet($id = 0)
     {
-        $data = request()->only('urun_adi', 'slug', 'aciklama', 'fiyat', 'indirimli_fiyat', 'isletme_id');
+        $data = request()->only('urun_kodu','urun_adi', 'slug', 'aciklama', 'fiyat', 'indirimli_fiyat', 'isletme_id', 'status', 'renk');
         if (!request()->filled('slug')) {
             $data['slug'] = Str::slug(request('urun_adi'));
             request()->merge(['slug' => $data['slug']]);
         }
 
         $this->validate(request(), [
+            'urun_kodu' => 'required',
             'urun_adi' => 'required',
             'fiyat' => 'required',
+            'status' => 'required',
+            'renk' => 'required',
             'slug' => (request('original_slug') != request('slug') ? 'unique:urun,slug' : '')
         ]);
 
@@ -176,31 +181,26 @@ class UrunController extends Controller
     public function nitelikekle(Request $request, $id = null)
     {
         $urunNitelik = Urun::where(['id' => $id])->first();
-        $urunNitelikListele = UrunNitelik::get();
+        $urunNitelikListele = UrunOzellikleri::where(['urun_id' => $id])->get();
+        $ozellikler = Ozellikler::all();
 
         if ($request->isMethod('post')) {
+            $nitelikler = $request->get("nitelik");
+            $stoklar = $request->get("stok");
             $data = $request->all();
             //echo "<pre>";print_r($data);die;
-            foreach ($data['urun_kodu'] as $key => $val) {
+            foreach ($data['id'] as $key => $val) {
                 if (!empty($val)) {
-                    $attrCountUrunKodu = UrunNitelik::where('urun_kodu', $val);
-                    if ($attrCountUrunKodu->count()) {
-                        return redirect(route('yonetim.urun.nitelikekle', ["id" => $id]))
-                            ->with('mesaj', 'Hata. Ürün kodu mevcut')
-                            ->with('mesaj_tur', 'error');
-                    }
-                    $attrCountBeden = UrunNitelik::where([
+                    $attrCountBeden = UrunOzellikleri::where([
                         'urun_id' => $id,
                         'beden' => $data['beden'][$key]
                     ])->get();
                     if ($attrCountBeden->count()) {
                         return redirect(route('yonetim.urun.nitelikekle', ["id" => $id]))->with('mesaj', '' . $data['beden'][$key] . 'Beden zaten var.')->with('mesaj_tur', 'error');
                     }
-                    $nitelik = new UrunNitelik;
+                    $nitelik = new UrunOzellikleri;
                     $nitelik->urun_id = $id;
-                    $nitelik->urun_kodu = $val;
                     $nitelik->beden = $data['beden'][$key];
-                    $nitelik->fiyat = $data['fiyat'][$key];
                     $nitelik->stok = $data['stok'][$key];
                     $nitelik->save();
                 }
@@ -208,12 +208,14 @@ class UrunController extends Controller
             }
         }
 
-        return view('yonetim.urun.nitelikekle', compact('urunNitelik', 'urunNitelikListele'));
+        return view('yonetim.urun.nitelikekle', compact('urunNitelik', 'urunNitelikListele', 'ozellikler'));
     }
 
-    public function statuGuncelle(Request $request, $id=null)
+    public function statuGuncelle(Request $request, $id = null)
     {
         $data = $request->all();
-        Urun::where('id', $data['id'])->update(['status'=>$data['status']]);
+        Urun::where('id', $data['id'])->update(['status' => $data['status'] == "true" ? 1 : 0]);
+
+        return response()->json(["durum" => true]);
     }
 }

@@ -80,12 +80,22 @@
 
                                         <div class="pd-color">
                                             <div class="pd-color-choose">
+
+                                                <div class="filter-widget">
+                                                    <h4 class="fw-title">Renk</h4>
+                                                    <div class="fw-color-choose">
+                                                        <div>
+                                                            <h5 class="fw-normal">{{$urun->renk}}</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                 @foreach($ozellikler as $key => $ozellik)
                                                     <div class="filter-widget">
                                                         <h4 class="fw-title">{{ $ozellik->ozellik_adi }}</h4>
                                                         <div class="fw-color-choose">
                                                             <div>
-                                                                <select id="filtre-{{$ozellik->id}}" class="filtre">
+                                                                <select name="{{\Illuminate\Support\Str::slug($ozellik->ozellik_adi)}}" id="filtre-{{$ozellik->id}}" class="filtre">
                                                                     @foreach($ozellik->degerler()->whereIn('id', $urunOzellikleri)->get() as $key => $deger)
                                                                         <option
                                                                             value="{{$deger->id}}">{{$deger->deger}}</option>
@@ -98,7 +108,7 @@
                                             </div>
                                         </div>
                                         <div class="pro-qty">
-                                            <input class="input" type="number" name="quantity" min="0">
+                                            <input class="input" type="number" name="quantity" min="1" value="1" max="{{$urunStok}}">
                                         </div>
                                         <button type="submit" value="Sepete Ekle" class="primary-btn pd-cart">Sepete
                                             Ekle

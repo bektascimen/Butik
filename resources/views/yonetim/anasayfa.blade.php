@@ -1,7 +1,7 @@
 @extends('yonetim.layouts.master')
 @section('title','Anasayfa')
 @section('content')
-    <h1 class="page-header">OrdanBi Yönetim Paneli</h1>
+    <h1 class="page-header">Butik Yönetim Paneli</h1>
 
     <section class="row text-center placeholders">
         <div class="col-6 col-sm-3">

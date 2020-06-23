@@ -55,6 +55,5 @@
             @endforeach
             </tbody>
         </table>
-        {{$list->appends('aranan', old('aranan'))->links()}}
     </div>
 @endsection

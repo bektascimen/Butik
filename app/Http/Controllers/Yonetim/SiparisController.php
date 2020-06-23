@@ -44,16 +44,10 @@ class SiparisController extends Controller
     public function kaydet($id=0)
     {
         $this->validate(request(),[
-            'ad'=>'required',
-            'soyad'=>'required',
-            'telefon' => 'required',
-            'satir1' => 'required',
             'durum' => 'required',
-            'odeme_yontemi' => 'required'
-
         ]);
 
-        $data = request()->only('ad', 'telefon', 'satir1', 'durum', 'odeme_yontemi');
+        $data = request()->only('ad', 'telefon', 'satir1', 'durum', 'st_no', 'odeme_yontemi');
 
         if ($id>0)
         {

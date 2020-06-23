@@ -7,9 +7,6 @@ use App\Models\Sepet;
 use App\Models\SepetUrun;
 use App\Models\Urun;
 use App\Models\UrunDetay;
-use App\Models\UrunNitelik;
-use App\Models\Renk;
-use App\Models\Beden;
 use App\Models\UrunOzellikleri;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
 use Illuminate\Http\Request;
@@ -30,15 +27,12 @@ class SepetController extends Controller
     {
         $urun = Urun::find(request('id'));
 
-        $nitelik = UrunOzellikleri::find(request('id'));
-        dd($nitelik);
-
         $cartItem = Cart::add($urun->id, $urun->urun_adi, ($urun->indirimli_fiyat ?: $urun->fiyat) , $request->get("quantity"),
             [
                 'slug' => $urun->slug,
                 'urun_resmi'=> $urun->detay->urun_resmi,
-                'beden' => $nitelik->ozellikDegerAdi->ozellik_deger_id,
-                'renk' => $nitelik->ozellikDegerAdi->ozellik_deger_id
+                'beden' => $request->get("beden"),
+                'renk' => $urun->renk,
             ]);
 
         if (auth()->check()) {
@@ -58,8 +52,8 @@ class SepetController extends Controller
                 ['adet' => $request->get("quantity"), 'fiyat' => $urun->indirimli_fiyat ?: $urun->fiyat,
                     'durum' => 'Beklemede',
                     'urun_resmi' => $urun->detay->urun_resmi,
-                    'beden' => $urun->urunOzellikleri->ozellik_deger_id,
-                    'renk' => $urun->urunOzellikleri->ozellik_deger_id,
+                    'beden' => $request->get("beden"),
+                    'renk' => $urun->renk,
                 ]);
 
         }
@@ -122,9 +116,10 @@ class SepetController extends Controller
             ->with('mesaj', 'Sepetinizde ürün bulunmuyor.');
     }
 
-    public function guncelle($itemId)
+    public function guncelle()
     {
         $quantity = request('quantity');
+        $itemId = request('id');
         $aktif_sepet_id = session('aktif_sepet_id');
         Cart::update($itemId, array('quantity' => $quantity));
 
@@ -134,7 +129,7 @@ class SepetController extends Controller
             'urun_id' => $itemId
         ])->first();
 
-        $sepetUrun->adet = $cartItem->quantity;
+        $sepetUrun->adet = $cartItem->quantity > 1 ? $cartItem->quantity : 1;
         $sepetUrun->save();
         return response()->json(['success' => true]);
     }

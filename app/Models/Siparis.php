@@ -23,7 +23,7 @@ class Siparis extends Model
         'fatura_adresi',
         'teslimat_adresi',
         'odeme_yontemi',
-        "siparis_puani"
+        'st_no'
     ];
 
     public function sepet()

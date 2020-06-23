@@ -33,15 +33,6 @@
                                         <img src="/uploads/urunler/{{$urun->detay->urun_resmi}}" alt="">
 
                                         <ul>
-                                            <li class="w-icon active">
-                                                <form action="{{route('sepet.ekle')}}" method="post">
-                                                    <input type="hidden" value="{{$urun->id}}" name="id">
-                                                    <input type="hidden" value="1" name="quantity">
-                                                    @csrf
-                                                    <button class="w-icon active" style="margin-left:auto; margin-right:auto; border: 0;" type="submit" value="Sepete Ekle"><i class="icon_bag_alt"></i></button>
-                                                </form>
-                                            </li>
-
                                             <li class="quick-view"><a href="{{ route('urun', $urun -> slug) }}">+ ÜRÜNÜ GÖR</a></li>
                                         </ul>
                                     </div>

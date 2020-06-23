@@ -95,14 +95,18 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    $('.urun-adet-artir, .urun-adet-azalt').on('click', function () {
+    $('.urun-adet-artir, .urun-adet-azalt').on('click', function (e) {
+        e.preventDefault();
         var id = $(this).attr('data-id');
         var adet = $(this).hasClass('urun-adet-artir') ? 1 : -1;
+        //var token = $('meta[name="csrf-token"]').attr('content')
         $.ajax({
             type: 'PATCH',
-            url: '/sepet/guncelle/' + id,
+            url: '/sepet/guncelle',
             data: {
-                quantity: adet
+                quantity: adet,
+                id
+                //token
             },
             success: function success(result) {
                 window.location.href = '/sepet';

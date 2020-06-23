@@ -15,7 +15,10 @@ class CreateIlceTable extends Migration
     {
         Schema::create('ilce', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('il_id')->unsigned();
             $table->string('ilce_adi', 20);
+
+            $table->foreign('il_id')->references('id')->on('il')->onDelete('cascade');
         });
     }
 

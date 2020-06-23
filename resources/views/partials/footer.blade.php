@@ -4,9 +4,6 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="footer-left">
-                    <div class="footer-logo">
-                        <a href="#"><img src="img/logo.png" alt=""></a>
-                    </div>
                     <ul>
                         <li>Adres: Rüstem Paşa, No:، Gazi Paşa Cd. No:7 Merkez/Yalova</li>
                         <li>Telefon: 0 555 144 55 26</li>
@@ -26,10 +23,8 @@
                     <ul>
                         <li><a href="{{route('siparisler')}}">Siparişlerim</a></li>
                         <li><a href="{{route('begenilen-urunler')}}">Favorilerim</a></li>
-                        <li><a href="#">Kargo Takip</a></li>
-                        <li><a href="#">İade Taleplerim</a></li>
                         <li><a href="{{route('kisiselbilgilerim')}}">Hesabım</a></li>
-                        <li><a href="#">Gizlilik Politikası</a></li>
+                        <li><a href="{{route('gizlilik-politikasi')}}">Gizlilik Politikası</a></li>
                     </ul>
                 </div>
             </div>
@@ -37,12 +32,12 @@
                 <div class="footer-widget">
                     <h5>Bilgi ve Destek</h5>
                     <ul>
-                        <li><a href="#">Ödeme Bilgilendirme</a></li>
-                        <li><a href="#">Kargo Teslimat</a></li>
-                        <li><a href="#">İptal - İade - Değişim</a></li>
-                        <li><a href="#">Sıkça Sorulan Sorular</a></li>
-                        <li><a href="#">Kullanım Koşulları</a></li>
-                        <li><a href="#">İletişim</a></li>
+                        <li><a href="{{route('odeme-bildirme')}}">Ödeme Bilgilendirme</a></li>
+                        <li><a href="{{route('kargo-teslimat')}}">Kargo Teslimat</a></li>
+                        <li><a href="{{route('iptal-iade-degisim')}}">İptal - İade - Değişim</a></li>
+                        <li><a href="{{route('sikca-sorulan-sorular')}}">Sıkça Sorulan Sorular</a></li>
+                        <li><a href="{{route('kullanimkosullarivegizlilik')}}">Kullanım Koşulları</a></li>
+                        <li><a href="{{route('iletisim')}}">İletişim</a></li>
                     </ul>
                 </div>
             </div>
@@ -59,12 +54,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="copyright-text">
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> by <a href="#" target="_blank">Bektaş Çimen</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    </div>
-                    <div class="payment-pic">
-                        <img src="img/payment-method.png" alt="">
+                         by <a href="https://www.linkedin.com/in/bektas-%C3%A7imen-4bb442169/" target="_blank">Bektaş Çimen</a>
                     </div>
                 </div>
             </div>

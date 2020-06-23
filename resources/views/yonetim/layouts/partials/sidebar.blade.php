@@ -1,6 +1,4 @@
 <div class="list-group">
-    <a href="{{route('yonetim.anasayfa')}}" class="list-group-item">
-        <span class="fa fa-fw fa-dashboard"></span> Giriş</a>
     <a href="{{route('yonetim.urun')}}" class="list-group-item">
         <span class="fa fa-fw fa-cubes"></span> Ürünler
         <span class="badge badge-dark badge-pill pull-right">
@@ -12,9 +10,6 @@
         <span class="badge badge-dark badge-pill pull-right">
             {{ $istatistikler['toplam_kategori'] }}
         </span>
-    </a>
-    <a href="#" class="list-group-item">
-        <span class="fa fa-fw fa-star"></span> Kurye Puanlamaları
     </a>
     <a href="{{route('yonetim.kullanici')}}" class="list-group-item">
         <span class="fa fa-fw fa-users"></span> Kullanıcılar

@@ -22,19 +22,19 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="ad">Ad</label>
-                        <input type="text" class="form-control" id="ad" name="ad" placeholder="Ad" value="{{ old('ad', $entry->ad) }}">
+                        <input type="text" class="form-control" id="ad" name="ad" placeholder="Ad" value="{{ old('ad', $entry->ad) }}" disabled="">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="soyad">Soyad</label>
-                        <input type="text" class="form-control" id="soyad" name="soyad" placeholder="Soyad" value="{{ old('soyad', $entry->soyad) }}">
+                        <input type="text" class="form-control" id="soyad" name="soyad" placeholder="Soyad" value="{{ old('soyad', $entry->soyad) }}" disabled="">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="Telefon">Telefon</label>
-                        <input type="text" class="form-control" id="Telefon" name="telefon" placeholder="telefon" value="{{ old('Telefon', $entry->telefon) }}">
+                        <input type="text" class="form-control" id="Telefon" name="telefon" placeholder="telefon" value="{{ old('Telefon', $entry->telefon) }}" disabled="">
                     </div>
                 </div>
             </div>
@@ -42,7 +42,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="satir1">Adres</label>
-                        <input class="form-control" id="adres" name="satir1" placeholder="Adres" value="{{ old('satir1', $entry->teslimat_adresi) }}">
+                        <input class="form-control" id="adres" name="satir1" placeholder="Adres" value="{{ old('satir1', $entry->teslimat_adresi) }}" disabled="">
                     </div>
                 </div>
             </div>
@@ -51,10 +51,10 @@
                 <div class="form-group">
                     <label for="durum">Durum</label>
                     <select name="durum" class="form-control" id="durum">
-                        <option {{ old('durum', $entry->durum) == 'Siparişiniz Alındı' ? 'selected' : '' }}>Siparişiniz alındı</option>
-                        <option {{ old('durum', $entry->durum) == 'Siparişiniz Hazırlanıyor' ? 'selected' : '' }}>Siparişiniz hazırlanıyor</option>
-                        <option {{ old('durum', $entry->durum) == 'Siparişiniz Yola Çıktı' ? 'selected' : '' }}>Siparişiniz yola çıktı</option>
-                        <option {{ old('durum', $entry->durum) == 'Siparişiniz Teslim Edildi' ? 'selected' : '' }}>Siparişiniz teslim edildi</option>
+                        <option {{ old('durum', $entry->durum) == 'Siparişiniz Alındı' ? 'selected' : '' }}>Siparişiniz Alındı</option>
+                        <option {{ old('durum', $entry->durum) == 'Siparişiniz Hazırlanıyor' ? 'selected' : '' }}>Siparişiniz Hazırlanıyor</option>
+                        <option {{ old('durum', $entry->durum) == 'Siparişiniz Kargoya Verildi' ? 'selected' : '' }}>Siparişiniz Kargoya Verildi</option>
+                        <option {{ old('durum', $entry->durum) == 'Siparişiniz Teslim Edildi' ? 'selected' : '' }}>Siparişiniz Teslim Edildi</option>
                     </select>
                 </div>
             </div>
@@ -62,8 +62,16 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
+                    <label for="st_no">Sipariş Takip Numarası</label>
+                    <input class="form-control" id="takipno" name="st_no" placeholder="Sipariş Takip Numarası" value="{{ old('st_no', $entry->st_no) }}">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
                     <label for="odeme_yontemi">Ödeme Yöntemi</label>
-                    <input type="text" class="form-control" id="odeme_yontemi" name="odeme_yontemi" placeholder="Ödeme Yöntemi" value="{{ old('odeme_yontemi', $entry->odeme_yontemi) }}" required>
+                    <input type="text" class="form-control" id="odeme_yontemi" name="odeme_yontemi" placeholder="Ödeme Yöntemi" value="{{ old('odeme_yontemi', $entry->odeme_yontemi) }}" required disabled="">
                 </div>
             </div>
         </div>

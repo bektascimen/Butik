@@ -28,18 +28,9 @@
                                  <div class="pi-pic">
                                         <img src="/uploads/urunler/{{$begen->urun->detay->urun_resmi}}" alt="">
                                     <div class="icon">
-                                            <a href="{{route('begenilen-urunler.sil', ['id'=>$begen->id])}}" style="float: left"><i class="icon_heart_alt"></i></a>
+                                            <a href="{{route('begenilen-urunler.sil', ['id'=>$begen->id])}}" style="float: left"><i class="icon_minus_alt2"></i></a>
                                     </div>
                             <ul>
-                                <li class="w-icon active">
-                                    <form action="{{route('sepet.ekle')}}" method="post">
-                                        <input type="hidden" value="{{$begen->urun->id}}" name="id">
-                                        <input type="hidden" value="1" name="quantity">
-                                        @csrf
-                                        <button class="w-icon active" style="margin-left:auto; margin-right:auto; border: 0;" type="submit" value="Sepete Ekle"><i class="icon_bag_alt"></i></button>
-                                    </form>
-                                </li>
-
                                 <li class="quick-view"><a href="{{ route('urun', $begen->urun->slug) }}">+ ÜRÜNÜ GÖR</a></li>
                             </ul>
                                  </div>

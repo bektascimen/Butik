@@ -119,21 +119,7 @@
                                         </form>
                                     </div>
                                     <ul>
-                                        <li class="w-icon active">
-                                            <form action="{{route('sepet.ekle')}}" method="post">
-                                                <input type="hidden" value="{{$urun->id}}" name="id">
-                                                <input type="hidden" value="1" name="quantity">
-                                                @csrf
-                                                <button class="w-icon active"
-                                                        style="margin-left:auto; margin-right:auto; border: 0;"
-                                                        type="submit" value="Sepete Ekle"><i class="icon_bag_alt"></i>
-                                                </button>
-                                            </form>
-                                        </li>
-
-                                        <li class="quick-view"><a href="{{ route('urun', $urun -> slug) }}">+ ÜRÜNÜ
-                                                GÖR</a></li>
-
+                                        <li class="quick-view"><a href="{{ route('urun', $urun -> slug) }}">+ ÜRÜNÜ GÖR</a></li>
                                     </ul>
                                 </div>
                                 <div class="pi-text">
@@ -178,21 +164,7 @@
                                         </form>
                                     </div>
                                     <ul>
-                                        <li class="w-icon active">
-                                            <form action="{{route('sepet.ekle')}}" method="post">
-                                                <input type="hidden" value="{{$urun->id}}" name="id">
-                                                <input type="hidden" value="1" name="quantity">
-                                                @csrf
-                                                <button class="w-icon active"
-                                                        style="margin-left:auto; margin-right:auto; border: 0;"
-                                                        type="submit" value="Sepete Ekle"><i class="icon_bag_alt"></i>
-                                                </button>
-                                            </form>
-                                        </li>
-
-                                        <li class="quick-view"><a href="{{ route('urun', $urun -> slug) }}">+ ÜRÜNÜ
-                                                GÖR</a></li>
-
+                                        <li class="quick-view"><a href="{{ route('urun', $urun -> slug) }}">+ ÜRÜNÜ GÖR</a></li>
                                     </ul>
                                 </div>
                                 <div class="pi-text">
@@ -223,40 +195,40 @@
 
     <!-- Instagram Section Begin -->
     <div class="instagram-photo">
-        <div class="insta-item set-bg" data-setbg="img/insta-1.jpg">
+        <div class="insta-item set-bg" data-setbg="img/i1.png">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
+                <h5><a href="https://www.instagram.com/komsu.butik/">Komşu & Tokyo Butik</a></h5>
             </div>
         </div>
-        <div class="insta-item set-bg" data-setbg="img/insta-2.jpg">
+        <div class="insta-item set-bg" data-setbg="img/i2.png">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
+                <h5><a href="https://www.instagram.com/komsu.butik/">Komşu & Tokyo Butik</a></h5>
             </div>
         </div>
-        <div class="insta-item set-bg" data-setbg="img/insta-3.jpg">
+        <div class="insta-item set-bg" data-setbg="img/i3.png">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
+                <h5><a href="https://www.instagram.com/komsu.butik/">Komşu & Tokyo Butik</a></h5>
             </div>
         </div>
-        <div class="insta-item set-bg" data-setbg="img/insta-4.jpg">
+        <div class="insta-item set-bg" data-setbg="img/i4.png">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
+                <h5><a href="https://www.instagram.com/komsu.butik/">Komşu & Tokyo Butik</a></h5>
             </div>
         </div>
-        <div class="insta-item set-bg" data-setbg="img/insta-5.jpg">
+        <div class="insta-item set-bg" data-setbg="img/i5.png">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
+                <h5><a href="https://www.instagram.com/komsu.butik/">Komşu & Tokyo Butik</a></h5>
             </div>
         </div>
-        <div class="insta-item set-bg" data-setbg="img/insta-6.jpg">
+        <div class="insta-item set-bg" data-setbg="img/i6.png">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
+                <h5><a href="https://www.instagram.com/komsu.butik/">Komşu & Tokyo Butik</a></h5>
             </div>
         </div>
     </div>

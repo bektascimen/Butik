@@ -78,7 +78,7 @@ Route::group(['prefix' => 'sepet'], function () {
     Route::post('/ekle', 'SepetController@ekle')->name('sepet.ekle');
     Route::delete('/kaldir/{itemId}', 'SepetController@kaldir')->name('sepet.kaldir');
     Route::delete('/bosalt', 'SepetController@bosalt')->name('sepet.bosalt');
-    Route::patch('/guncelle/{itemId}', 'SepetController@guncelle')->name('sepet.guncelle');
+    Route::patch('/guncelle', 'SepetController@guncelle')->name('sepet.guncelle');
 });
 
 
@@ -125,6 +125,11 @@ Route::group(['prefix' => 'kullanici'], function () {
 });
 
 Route::get('/kullanimkosullarivegizlilik', 'KullanimKosullariveGizlilikController@index')->name('kullanimkosullarivegizlilik');
+Route::get('/kargo-teslimat', 'KargoController@index')->name('kargo-teslimat');
+Route::get('/sikca-sorulan-sorular', 'SSSController@index')->name('sikca-sorulan-sorular');
+Route::get('/odeme-bildirme', 'OdemeBildirmeController@index')->name('odeme-bildirme');
+Route::get('/gizlilik-politikasi', 'GizlilikPolitikasiController@index')->name('gizlilik-politikasi');
+Route::get('/iptal-iade-degisim', 'IptalIadeDegisimController@index')->name('iptal-iade-degisim');
 Route::get('/iletisim', 'IletisimController@index')->name('iletisim');
 
 

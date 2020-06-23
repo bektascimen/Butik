@@ -15,7 +15,7 @@ class Urun extends Model
     const UPDATED_AT = 'guncelleme_tarihi';
     const DELETED_AT = 'silinme_tarihi';
 
-    protected $fillable = array('urun_adi', 'slug', 'aciklama', 'fiyat', 'indirimli_fiyat', 'isletme_id');
+    protected $fillable = array('urun_kodu', 'renk', 'urun_adi', 'slug', 'aciklama', 'fiyat', 'indirimli_fiyat', 'isletme_id', 'status');
 
     public function kategoriler()
     {
@@ -32,9 +32,9 @@ class Urun extends Model
         return $this->belongsTo(UrunOzellikleri::class);
     }
 
-    function urunAdi()
+    function renk()
     {
-        return $this->belongsTo(Ozellikler::class, 'ozellik_id');
+        return $this->belongsTo(Renk::class, 'ozellik_id');
     }
 
     public function detay()
