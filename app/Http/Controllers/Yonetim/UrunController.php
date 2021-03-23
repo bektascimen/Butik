@@ -37,7 +37,6 @@ class UrunController extends Controller
         if ($id > 0) {
             $entry = Urun::find($id);
             $urun_kategoriler = $entry->kategoriler()->pluck('kategori_id')->all();
-
         }
 
         $kategoriler = Kategori::all();

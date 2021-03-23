@@ -18,11 +18,9 @@ class CreateUrunTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('isletme_id')->unsigned();
             $table->string('urun_adi',150);
-            $table->string('urun_kodu',150);
-            $table->string('renk',150);
             $table->string('slug', 150);
             $table->text('aciklama');
-            $table->decimal('indirimli_fiyat', 6, 2);
+            $table->decimal('indirimli_fiyat', 6, 2)->default(0);
             $table->decimal('fiyat', 6, 2);
             $table->timestamp('olusturma_tarihi')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('guncelleme_tarihi')->default(DB::raw('CURRENT_TIMESTAMP on UPDATE CURRENT_TIMESTAMP'));

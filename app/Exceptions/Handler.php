@@ -6,7 +6,10 @@ use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -32,34 +35,36 @@ class Handler extends ExceptionHandler
     /**
      * Report or log an exception.
      *
-     * @param  \Exception  $exception
+     * @param Throwable $e
      * @return void
+     * @throws Throwable
      */
-    public function report(Exception $exception)
+    public function report(Throwable $e)
     {
-        parent::report($exception);
+        parent::report($e);
     }
 
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Throwable $e
+     * @return Response
+     * @throws Throwable
      */
-    public function render($request, Exception $exception)
+    public function render($request, Throwable $e)
     {
-        if ($exception instanceof NotFoundHttpException)
+        if ($e instanceof NotFoundHttpException)
             {
                 return response()->view('errors.404', compact('exception'), 404);
             }
 
-        if ($exception instanceof ModelNotFoundException)
+        if ($e instanceof ModelNotFoundException)
             {
                 return response()->view('errors.404', compact('exception'), 404);
             }
 
-        return parent::render($request, $exception);
+        return parent::render($request, $e);
     }
 
     protected function unauthenticated($request, AuthenticationException $exception)

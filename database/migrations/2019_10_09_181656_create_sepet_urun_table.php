@@ -20,8 +20,6 @@ class CreateSepetUrunTable extends Migration
             $table->bigInteger('adet');
             $table->decimal('fiyat', 5, 2);
             $table->string('durum',30);
-            $table->string('renk',30);
-            $table->string('beden',30);
             $table->timestamp('olusturma_tarihi')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('guncelleme_tarihi')->default(DB::raw('CURRENT_TIMESTAMP on UPDATE CURRENT_TIMESTAMP'));
             $table->timestamp('silinme_tarihi')->nullable();

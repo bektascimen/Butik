@@ -15,8 +15,8 @@ class AddColumnUrun extends Migration
     {
         //
         Schema::table('urun', function (Blueprint $table){
-            $table->string('renk');
-            $table->string('beden');
+            $table->string('renk')->default(0);
+            $table->string('beden')->default(0);
         });
     }
 
